@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+	<head>
+	<title>SIMON'S GAME</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/jquery.color-animation/1/mainfile"></script>
+	</head>
+	
+	<body>
+		<audio src='https://s3.amazonaws.com/freecodecamp/simonSound1.mp3' class="adio" ></audio>
+		<audio src='https://s3.amazonaws.com/freecodecamp/simonSound2.mp3' class="adio" ></audio>
+		<audio src='https://s3.amazonaws.com/freecodecamp/simonSound3.mp3' class="adio"></audio>
+		<audio src='https://s3.amazonaws.com/freecodecamp/simonSound4.mp3' class="adio" ></audio>
+			
+		<script>
+			i=0;
+			a=[];
+			b=['red','green','blue','yellow'];
+			function runit(v)
+			{
+					if (v!=0) {
+						$(".adio").get(v-1).play();
+					}
+					if(i<a.length)
+					{
+						if(v==(a[i]+1))
+						{
+							i++;
+							$("#titl").text("RIGHT : "+i);
+							
+						}
+						else {
+							$("#titl").text("WRONG, START OVER!");
+							$("#titl").append("<h3 style='text-Align: center'>SCORE : "+i+"</h3>");
+							i=0;
+							a=[];
+							$("#srt").show();
+							document.getElementById("myBtn1").disabled = true;
+							document.getElementById("myBtn2").disabled = true;
+							document.getElementById("myBtn3").disabled = true;
+							document.getElementById("myBtn4").disabled = true;
+							return;
+						}
+					}
+					if(i==a.length) {
+						x=Math.floor(Math.random()*3.999);
+						a[i]=x;
+						
+						if (v!=0) {
+							$("#titl").text("GREAT, GO TO NEXT ROUND!");
+							$("#titl").append("<h3 style='text-Align: center'>SCORE : "+i+"</h3>");
+						}
+						else {
+							$("#titl").text("NEW GAME");
+							$("#srt").hide();
+							document.getElementById("myBtn1").disabled = false;
+							document.getElementById("myBtn2").disabled = false;
+							document.getElementById("myBtn3").disabled = false;
+							document.getElementById("myBtn4").disabled = false;
+						}
+						i=0;
+						$("div").delay(500).animate({backgroundColor:b[x]},1000);
+						$("div").delay(1000).animate({backgroundColor:"black"},1000);
+					}
+				
+			
+			}
+						
+						
+				
+		</script>
+			
+			
+		<div class="w3-display-container" style="max-width: 100%; height: 625px; background-color: black">
+			<h2 class="w3-display-topmiddle w3-text-white" id="titl" style="margin-top: 40px">NEW GAME</h2>
+			<button class="w3-display-middle w3-button w3-white w3-round w3-ripple" id="srt" style="margin-top: 80px" onclick=runit(0)>START</button>
+			<button class="w3-display-left w3-round-xxlarge w3-btn  w3-hover-opacity" style="border-style: inset; width: 15%; height: 25%; margin-left: 20%; margin-top: -15px; box-shadow: 2px 4px 8px white;  background-color: red" id="myBtn1" onclick=runit(1) disabled></button>
+			<button class="w3-display-right w3-round-xxlarge w3-btn w3-hover-opacity" style="border-style: inset; width: 15%; height: 25%; margin-right: 20%; margin-top: -15px; box-shadow: 2px 4px 8px white;  background-color: green" id="myBtn2" onclick=runit(2) disabled></button>
+			<button class="w3-display-bottomleft w3-round-xxlarge w3-btn w3-hover-opacity" style="border-style: inset; width: 15%; height: 25%; margin-left: 20%; margin-bottom: 20px; box-shadow: 2px 4px 8px white;  background-color: blue" id="myBtn3" onclick=runit(3) disabled></button>
+			<button class="w3-display-bottomright w3-round-xxlarge w3-btn w3-hover-opacity" style="border-style: inset; width: 15%; height: 25%; margin-right: 20%; margin-bottom: 20px; box-shadow: 2px 4px 8px white;  background-color: yellow" id="myBtn4" onclick=runit(4) disabled></button>
+		</div>
+	</body>
+</html>
+
+<!--.queue(function(){$(this).css("background-color","black");$(this).dequeue();});-->
